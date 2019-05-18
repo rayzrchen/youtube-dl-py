@@ -1,0 +1,41 @@
+initdb.exe -D "c:\temp\pg_db_utf8" -E UTF8 -U postgres
+
+pg_ctl -D ^"c^:^\temp^\pg^_db^_utf8^" start
+
+create user demo1 with superuser;
+create database demo1 with owner=demo1;
+
+-- then use connect via the JDBC
+
+create extension "uuid-ossp";
+
+create table t1(
+    id uuid default uuid_generate_v4() primary key ,
+    name varchar(100) default '' not null,
+    create_time bigint default 0 not null
+);
+
+create table t2(
+    id uuid default uuid_generate_v4() primary key ,
+    name2 varchar(1000) default '' not null,
+    date1 date not null,
+    create_time bigint default 0 not null
+);
+
+insert into t1 (name, create_time)
+values ('ray', 100), ('david', 200);
+
+
+-- save the above sql as a file
+-- use the "\i unix_like_file_path" to run the sql commands;
+
+backup:
+pg_dump -U ${db} -Fc ${db} > ${db}.dump
+
+restore:
+pg_restore -U ${db} -d ${db} -O ${db}.dump
+
+
+backup 2 and restore:
+pg_dumpall > db.out
+psql -f db.out postgres
