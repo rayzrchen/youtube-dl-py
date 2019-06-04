@@ -1,3 +1,7 @@
 youtube_dl
 yturl
 mutagen
+requests>=2.7.0
+selenium
+selenium-requests
+beautifulsoup4

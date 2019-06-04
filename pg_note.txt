@@ -1,6 +1,6 @@
-initdb.exe -D "c:\temp\pg_db_utf8" -E UTF8 -U postgres
+initdb.exe -D "c:\sandbox\pg-db" -E UTF8 -U postgres --locale C
 
-pg_ctl -D ^"c^:^\temp^\pg^_db^_utf8^" start
+pg_ctl.exe -D "c:\sandbox\pg-db" start
 
 create user demo1 with superuser;
 create database demo1 with owner=demo1;
